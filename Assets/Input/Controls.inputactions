@@ -16,8 +16,17 @@
                 },
                 {
                     "name": "Sprint",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "56a71c80-08ba-4827-95cc-676cac170c88",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Look",
+                    "type": "PassThrough",
+                    "id": "ec172e10-911f-4f23-bc72-11a287047426",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -82,12 +91,23 @@
                 },
                 {
                     "name": "",
-                    "id": "9ba51a64-e521-4426-b607-9f5ab3783400",
-                    "path": "<Keyboard>/leftShift",
+                    "id": "c82af62f-09c7-4b3f-8636-648a5ef99360",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1d186a0f-a37a-4740-af68-939844e72dd7",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

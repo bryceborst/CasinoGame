@@ -38,8 +38,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Sprint"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""56a71c80-08ba-4827-95cc-676cac170c88"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""ec172e10-911f-4f23-bc72-11a287047426"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -104,12 +113,23 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""9ba51a64-e521-4426-b607-9f5ab3783400"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""id"": ""c82af62f-09c7-4b3f-8636-648a5ef99360"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1d186a0f-a37a-4740-af68-939844e72dd7"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -122,6 +142,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Locomotion = asset.FindActionMap("Locomotion", throwIfNotFound: true);
         m_Locomotion_Move = m_Locomotion.FindAction("Move", throwIfNotFound: true);
         m_Locomotion_Sprint = m_Locomotion.FindAction("Sprint", throwIfNotFound: true);
+        m_Locomotion_Look = m_Locomotion.FindAction("Look", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -185,12 +206,14 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private List<ILocomotionActions> m_LocomotionActionsCallbackInterfaces = new List<ILocomotionActions>();
     private readonly InputAction m_Locomotion_Move;
     private readonly InputAction m_Locomotion_Sprint;
+    private readonly InputAction m_Locomotion_Look;
     public struct LocomotionActions
     {
         private @Controls m_Wrapper;
         public LocomotionActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Locomotion_Move;
         public InputAction @Sprint => m_Wrapper.m_Locomotion_Sprint;
+        public InputAction @Look => m_Wrapper.m_Locomotion_Look;
         public InputActionMap Get() { return m_Wrapper.m_Locomotion; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -206,6 +229,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
         }
 
         private void UnregisterCallbacks(ILocomotionActions instance)
@@ -216,6 +242,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
         }
 
         public void RemoveCallbacks(ILocomotionActions instance)
@@ -237,5 +266,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
     }
 }
