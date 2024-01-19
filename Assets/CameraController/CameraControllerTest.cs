@@ -3,13 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraControllerTest : MonoBehaviour
 {
     [SerializeField] private String cameraMode;
 
+    [SerializeField] private Transform playerParent;
+
     [SerializeField] private int sensitivity;
 
-    //[SerializeField] private InputManager controllerInput;
+    private Controls input;
+
+    private Vector2 look;
 
     private float rotation;
     
@@ -17,27 +21,28 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        input = new Controls();
+        input.Enable();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
+        look = input.Locomotion.Look.ReadValue<Vector2>();
+        Debug.Log(look.x + " " + look.y);
         if (cameraMode.Equals("MainCameraMode"))
         {
-          //  MainCameraMode(Time.deltaTime);
+            MainCameraMode(Time.deltaTime);
         }
     }
 
-    /*
     private void MainCameraMode(float deltaTime)
     {
-        // float mouseX = input.Look.x * sensitivity * deltaTime;
-       // float mouseY = input.Look.y * sensitivity * deltaTime;
+        float mouseX = look.x * sensitivity * deltaTime;
+        float mouseY = look.y * sensitivity * deltaTime;
         rotation -= mouseY;
         rotation = Mathf.Clamp(rotation, -90, 90);
         transform.localRotation = Quaternion.Euler(rotation, 0, 0);
         playerParent.Rotate(Vector3.up, mouseX);
     }
-    */
 }
