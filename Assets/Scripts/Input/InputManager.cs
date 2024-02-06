@@ -14,8 +14,9 @@ public class InputManager : MonoBehaviour
     
     
     public Vector2 Move { get; private set; }
-    
-    //public Vector2 Look { get; private set; }
+    public Vector2 Look { get; private set; }
+
+    public InputAction ForwardCheck;
 
 
     public InputAction Sprint;
@@ -38,6 +39,7 @@ public class InputManager : MonoBehaviour
     void Start()
     {
         Sprint = controls.Locomotion.Sprint;
+        ForwardCheck = controls.Locomotion.ForwardCheck;
     }
 
     // Update is called once per frame
@@ -46,7 +48,7 @@ public class InputManager : MonoBehaviour
         Move = controls.Locomotion.Move.ReadValue<Vector2>();
         
         //USE LATER
-        //Look = controls.Locomotion.Look.ReadValue<Vector2>(); 
+        Look = controls.Locomotion.Look.ReadValue<Vector2>(); 
     }
     
 }
