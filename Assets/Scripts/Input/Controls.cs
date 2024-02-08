@@ -62,6 +62,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ExitButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""7b11967d-e298-47c3-b3e9-d154d7bc20d7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +161,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""TriggerButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""326c9f0e-5f60-4c1d-a205-2516cb7e07a9"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ExitButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +184,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Locomotion_Sprint = m_Locomotion.FindAction("Sprint", throwIfNotFound: true);
         m_Locomotion_Look = m_Locomotion.FindAction("Look", throwIfNotFound: true);
         m_Locomotion_TriggerButton = m_Locomotion.FindAction("TriggerButton", throwIfNotFound: true);
+        m_Locomotion_ExitButton = m_Locomotion.FindAction("ExitButton", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -229,6 +250,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Locomotion_Sprint;
     private readonly InputAction m_Locomotion_Look;
     private readonly InputAction m_Locomotion_TriggerButton;
+    private readonly InputAction m_Locomotion_ExitButton;
     public struct LocomotionActions
     {
         private @Controls m_Wrapper;
@@ -237,6 +259,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Sprint => m_Wrapper.m_Locomotion_Sprint;
         public InputAction @Look => m_Wrapper.m_Locomotion_Look;
         public InputAction @TriggerButton => m_Wrapper.m_Locomotion_TriggerButton;
+        public InputAction @ExitButton => m_Wrapper.m_Locomotion_ExitButton;
         public InputActionMap Get() { return m_Wrapper.m_Locomotion; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -258,6 +281,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @TriggerButton.started += instance.OnTriggerButton;
             @TriggerButton.performed += instance.OnTriggerButton;
             @TriggerButton.canceled += instance.OnTriggerButton;
+            @ExitButton.started += instance.OnExitButton;
+            @ExitButton.performed += instance.OnExitButton;
+            @ExitButton.canceled += instance.OnExitButton;
         }
 
         private void UnregisterCallbacks(ILocomotionActions instance)
@@ -274,6 +300,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @TriggerButton.started -= instance.OnTriggerButton;
             @TriggerButton.performed -= instance.OnTriggerButton;
             @TriggerButton.canceled -= instance.OnTriggerButton;
+            @ExitButton.started -= instance.OnExitButton;
+            @ExitButton.performed -= instance.OnExitButton;
+            @ExitButton.canceled -= instance.OnExitButton;
         }
 
         public void RemoveCallbacks(ILocomotionActions instance)
@@ -297,5 +326,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnTriggerButton(InputAction.CallbackContext context);
+        void OnExitButton(InputAction.CallbackContext context);
     }
 }

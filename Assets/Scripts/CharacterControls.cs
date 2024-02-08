@@ -19,6 +19,7 @@ public class CharacterControls : MonoBehaviour
     private Rigidbody rigid;
     private bool inTriggerZone;
     [SerializeField] private TMP_Text hText;
+    private bool lookingAtSomething;
 
     // Start is called before the first frame update
     void Start()
@@ -27,12 +28,20 @@ public class CharacterControls : MonoBehaviour
         _controller = GetComponent<CharacterController>();
 
         inputManager.Sprint.performed += context => isSprinting = true;
+        lookingAtSomething = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        HandleMovement(Time.deltaTime);
+        if (!lookingAtSomething)
+        {
+            HandleMovement(Time.deltaTime);            
+        }
+        else
+        {
+            handLookingAtSomething();
+        }
         if (inTriggerZone)
         {
             handleTriggerZone();
@@ -68,16 +77,39 @@ public class CharacterControls : MonoBehaviour
         hText.SetText(" ");
     }
 
-    private void handleTriggerZone()
+    public void handleH()
+    {
+        if (inTriggerZone)
+        {
+            handLookingAtSomething();
+        }
+
+        else if (lookingAtSomething)
+        {
+            lookAway();
+        }
+    }
+
+    private void handLookingAtSomething()
     {
         
+        hText.SetText("Press H to exit");
+        GetComponentInChildren<CameraControllerTest>().setCameraMode(2);
+        inTriggerZone = false;
+        lookingAtSomething = true;
+        
+    }
+
+    private void lookAway()
+    {
+        GetComponentInChildren<CameraControllerTest>().setCameraMode(1);
+        hText.SetText(" ");
+        lookingAtSomething = false;
+    }
+
+    private void handleTriggerZone()
+    {
         hText.SetText("Press H to view");
-        if (inputManager.H.ReadValue<float>() == 1f)
-        {
-            hText.SetText(" ");
-                   GetComponentInChildren<CameraControllerTest>().setCameraMode(2);
-                   inTriggerZone = false;
-        }
     }
 
     private bool IsGrounded()

@@ -12,8 +12,8 @@ public class InputManager : MonoBehaviour
     public static InputManager instance;
 
     private Controls controls;
-    
-    
+
+    [SerializeField] private CharacterControls _characterControls;
     public Vector2 Move { get; private set; }
     
     public Vector2 Look { get; private set; }
@@ -21,7 +21,9 @@ public class InputManager : MonoBehaviour
 
     public InputAction Sprint;
 
-    public InputAction H;
+    private InputAction H;
+
+    private float PreviousH;
     
     public void Awake()
     {
@@ -52,6 +54,13 @@ public class InputManager : MonoBehaviour
         
         //USE LATER
         Look = controls.Locomotion.Look.ReadValue<Vector2>();
+
+        if (H.ReadValue<float>() > PreviousH)
+        {
+            _characterControls.handleH();
+        }
+        PreviousH = H.ReadValue<float>();
+        
     }
     
 }
