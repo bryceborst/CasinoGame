@@ -55,18 +55,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""TriggerButton"",
+                    ""name"": ""ForwardCheck"",
                     ""type"": ""Button"",
-                    ""id"": ""5385da08-c68e-4018-91f4-322eb1877886"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ExitButton"",
-                    ""type"": ""Button"",
-                    ""id"": ""7b11967d-e298-47c3-b3e9-d154d7bc20d7"",
+                    ""id"": ""ce5abcda-c59c-416b-ada7-a38cbe9d66de"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -153,23 +144,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""9fed58ea-9719-4054-ac60-206383c1eeed"",
-                    ""path"": ""<Keyboard>/h"",
+                    ""id"": ""2e8eaebe-adeb-4dc9-8456-1428c13c326d"",
+                    ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""TriggerButton"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""326c9f0e-5f60-4c1d-a205-2516cb7e07a9"",
-                    ""path"": ""<Keyboard>/j"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ExitButton"",
+                    ""action"": ""ForwardCheck"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -183,8 +163,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Locomotion_Move = m_Locomotion.FindAction("Move", throwIfNotFound: true);
         m_Locomotion_Sprint = m_Locomotion.FindAction("Sprint", throwIfNotFound: true);
         m_Locomotion_Look = m_Locomotion.FindAction("Look", throwIfNotFound: true);
-        m_Locomotion_TriggerButton = m_Locomotion.FindAction("TriggerButton", throwIfNotFound: true);
-        m_Locomotion_ExitButton = m_Locomotion.FindAction("ExitButton", throwIfNotFound: true);
+        m_Locomotion_ForwardCheck = m_Locomotion.FindAction("ForwardCheck", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -249,8 +228,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Locomotion_Move;
     private readonly InputAction m_Locomotion_Sprint;
     private readonly InputAction m_Locomotion_Look;
-    private readonly InputAction m_Locomotion_TriggerButton;
-    private readonly InputAction m_Locomotion_ExitButton;
+    private readonly InputAction m_Locomotion_ForwardCheck;
     public struct LocomotionActions
     {
         private @Controls m_Wrapper;
@@ -258,8 +236,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Locomotion_Move;
         public InputAction @Sprint => m_Wrapper.m_Locomotion_Sprint;
         public InputAction @Look => m_Wrapper.m_Locomotion_Look;
-        public InputAction @TriggerButton => m_Wrapper.m_Locomotion_TriggerButton;
-        public InputAction @ExitButton => m_Wrapper.m_Locomotion_ExitButton;
+        public InputAction @ForwardCheck => m_Wrapper.m_Locomotion_ForwardCheck;
         public InputActionMap Get() { return m_Wrapper.m_Locomotion; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -278,12 +255,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
-            @TriggerButton.started += instance.OnTriggerButton;
-            @TriggerButton.performed += instance.OnTriggerButton;
-            @TriggerButton.canceled += instance.OnTriggerButton;
-            @ExitButton.started += instance.OnExitButton;
-            @ExitButton.performed += instance.OnExitButton;
-            @ExitButton.canceled += instance.OnExitButton;
+            @ForwardCheck.started += instance.OnForwardCheck;
+            @ForwardCheck.performed += instance.OnForwardCheck;
+            @ForwardCheck.canceled += instance.OnForwardCheck;
         }
 
         private void UnregisterCallbacks(ILocomotionActions instance)
@@ -297,12 +271,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
-            @TriggerButton.started -= instance.OnTriggerButton;
-            @TriggerButton.performed -= instance.OnTriggerButton;
-            @TriggerButton.canceled -= instance.OnTriggerButton;
-            @ExitButton.started -= instance.OnExitButton;
-            @ExitButton.performed -= instance.OnExitButton;
-            @ExitButton.canceled -= instance.OnExitButton;
+            @ForwardCheck.started -= instance.OnForwardCheck;
+            @ForwardCheck.performed -= instance.OnForwardCheck;
+            @ForwardCheck.canceled -= instance.OnForwardCheck;
         }
 
         public void RemoveCallbacks(ILocomotionActions instance)
@@ -325,7 +296,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
-        void OnTriggerButton(InputAction.CallbackContext context);
-        void OnExitButton(InputAction.CallbackContext context);
+        void OnForwardCheck(InputAction.CallbackContext context);
     }
 }

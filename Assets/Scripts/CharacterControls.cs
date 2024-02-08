@@ -1,119 +1,141 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
+using UnityEngine.PlayerLoop;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class CharacterControls : MonoBehaviour
 {
-    private InputManager inputManager;
-    
+    public Slider _slider;
+
+    private InputManager _inputManager;
+
+    private Controls _controls;
+
     private CharacterController _controller;
-    private float runSpeed = 5.5f;
-    private float sprintSpeed = 8f;
-    private bool isSprinting = false;
-    private float stamina = 100f;
-    private Rigidbody rigid;
-    private bool inTriggerZone;
-    [SerializeField] private TMP_Text hText;
-    private bool lookingAtSomething;
+
+    [FormerlySerializedAs("runSpeed")] [SerializeField]
+    private float _walkSpeed = 5.5f;
+
+    [SerializeField] private float sprintSpeed = 8f;
+
+    private bool _isSprinting = false;
+
+    private bool _cancelSprint = false;
+
+    private float _stamina = 100f;
+
+    [SerializeField] private float _staminaGainRate;
+
+    private bool _noStamina = false;
+
+    private bool _wPressed = false;
+
+    [SerializeField] private float staminaLossRate = 10f;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        inputManager = InputManager.instance;
+        _inputManager = InputManager.instance;
         _controller = GetComponent<CharacterController>();
 
-        inputManager.Sprint.performed += context => isSprinting = true;
-        lookingAtSomething = false;
+        //Slider setup
+        //_slider = GetComponent<Slider>();
+        //_slider.enabled = true;
+        _slider.minValue = 0f;
+        _slider.maxValue = 100f;
+
+        _inputManager.Sprint.performed += context => _isSprinting = true;
+        _inputManager.Sprint.canceled += context => _isSprinting = false;
+
+        _inputManager.ForwardCheck.performed += context => _wPressed = true;
+        _inputManager.ForwardCheck.canceled += context => _wPressed = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!lookingAtSomething)
+        HandleStamina();
+        HandleMovement(Time.deltaTime);
+    }
+
+    private void HandleMovement(float delta)
+    {
+        //Walk speed
+        Vector3 movement = (_inputManager.Move.x * transform.right) + (_inputManager.Move.y * transform.forward);
+
+        _controller.Move(_walkSpeed * movement * delta);
+
+        //"W" must be pressed or sprint gets cancelled
+        if (!_wPressed)
         {
-            HandleMovement(Time.deltaTime);            
+            _cancelSprint = true;
         }
         else
         {
-            handLookingAtSomething();
+            _cancelSprint = false;
         }
-        if (inTriggerZone)
+
+
+        //Cleans up sprinting so you can only sprint forward and "diagonal forward"
+        if (_isSprinting && !_cancelSprint)
         {
-            handleTriggerZone();
+            //Use for future stamina feature
+            if (_stamina > 0 && !_noStamina)
+            {
+                _stamina -= Time.deltaTime * staminaLossRate;
+                //Moves player at sprint speed
+                _controller.Move(sprintSpeed * movement * delta);
+            }
         }
     }
-    
-    private void HandleMovement(float delta)
+
+    private void HandleStamina()
     {
-        Vector3 movement = (inputManager.Move.x * transform.right) + (inputManager.Move.y * transform.forward);
-    
-        _controller.Move( runSpeed * movement * delta);
-        
-        if (isSprinting)
+
+        //Checks left shift, reasonable stamina, and the 0 stamina delay
+        if (!_isSprinting && _stamina < 100 && _stamina > 0 && !_noStamina)
         {
-            stamina -= Time.deltaTime * 10;
-            _controller.Move(sprintSpeed * movement * delta);
+            _stamina += Time.deltaTime * _staminaGainRate;
         }
-
-    }
-    
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag.Equals("LookTrigger"))
+        //When stamina runs all the way out it flicks a switch that keeps stamina "turned off" until it regens to 50
+        else if (_stamina <= 0 || _noStamina)
         {
-            inTriggerZone = true;
+            //HIT ZERO
+            _noStamina = true;
+            _cancelSprint = true;
+            if (_isSprinting)
+            {
+                //DO LATER
+                //print message on screen that reads "Stop sprinting to regain stamina"
+            }
+            else if (_stamina <= 50 && !_isSprinting)
+            {
+                _stamina += Time.deltaTime * _staminaGainRate;
+            }
+            else if (_stamina > 50)
+            {
+                _noStamina = false;
+            }
         }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        inTriggerZone = false;
-        GetComponentInChildren<CameraControllerTest>().setCameraMode(1);
-        hText.SetText(" ");
-    }
-
-    public void handleH()
-    {
-        if (inTriggerZone)
+        _stamina = _stamina switch
         {
-            handLookingAtSomething();
-        }
+            > 100f => 100,
+            < 0f => 0f,
+            _ => _stamina
+        };
+        _slider.value = _stamina;
 
-        else if (lookingAtSomething)
-        {
-            lookAway();
-        }
     }
 
-    private void handLookingAtSomething()
-    {
-        
-        hText.SetText("Press H to exit");
-        GetComponentInChildren<CameraControllerTest>().setCameraMode(2);
-        inTriggerZone = false;
-        lookingAtSomething = true;
-        
-    }
 
-    private void lookAway()
-    {
-        GetComponentInChildren<CameraControllerTest>().setCameraMode(1);
-        hText.SetText(" ");
-        lookingAtSomething = false;
-    }
 
-    private void handleTriggerZone()
-    {
-        hText.SetText("Press H to view");
-    }
 
-    private bool IsGrounded()
-    {
-        return _controller.isGrounded;
-    }
+
+
 }

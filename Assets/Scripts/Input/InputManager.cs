@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.HID;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour
@@ -12,18 +11,15 @@ public class InputManager : MonoBehaviour
     public static InputManager instance;
 
     private Controls controls;
-
-    [SerializeField] private CharacterControls _characterControls;
-    public Vector2 Move { get; private set; }
     
+    
+    public Vector2 Move { get; private set; }
     public Vector2 Look { get; private set; }
+
+    public InputAction ForwardCheck;
 
 
     public InputAction Sprint;
-
-    private InputAction H;
-
-    private float PreviousH;
     
     public void Awake()
     {
@@ -35,7 +31,7 @@ public class InputManager : MonoBehaviour
         {
             instance = this;
         }
-        
+
         controls = new Controls();
         controls.Enable();
     }
@@ -43,8 +39,7 @@ public class InputManager : MonoBehaviour
     void Start()
     {
         Sprint = controls.Locomotion.Sprint;
-        
-        H = controls.Locomotion.TriggerButton;
+        ForwardCheck = controls.Locomotion.ForwardCheck;
     }
 
     // Update is called once per frame
@@ -53,14 +48,7 @@ public class InputManager : MonoBehaviour
         Move = controls.Locomotion.Move.ReadValue<Vector2>();
         
         //USE LATER
-        Look = controls.Locomotion.Look.ReadValue<Vector2>();
-
-        if (H.ReadValue<float>() > PreviousH)
-        {
-            _characterControls.handleH();
-        }
-        PreviousH = H.ReadValue<float>();
-        
+        Look = controls.Locomotion.Look.ReadValue<Vector2>(); 
     }
     
 }

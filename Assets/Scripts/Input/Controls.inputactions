@@ -33,18 +33,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "TriggerButton",
+                    "name": "ForwardCheck",
                     "type": "Button",
-                    "id": "5385da08-c68e-4018-91f4-322eb1877886",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ExitButton",
-                    "type": "Button",
-                    "id": "7b11967d-e298-47c3-b3e9-d154d7bc20d7",
+                    "id": "ce5abcda-c59c-416b-ada7-a38cbe9d66de",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -131,23 +122,12 @@
                 },
                 {
                     "name": "",
-                    "id": "9fed58ea-9719-4054-ac60-206383c1eeed",
-                    "path": "<Keyboard>/h",
+                    "id": "2e8eaebe-adeb-4dc9-8456-1428c13c326d",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TriggerButton",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "326c9f0e-5f60-4c1d-a205-2516cb7e07a9",
-                    "path": "<Keyboard>/j",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ExitButton",
+                    "action": "ForwardCheck",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
