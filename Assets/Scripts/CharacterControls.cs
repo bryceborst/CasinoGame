@@ -44,8 +44,8 @@ public class CharacterControls : MonoBehaviour
         _controller = GetComponent<CharacterController>();
 
         //Slider setup
-        // _slider = GetComponent<Slider>();
-        _slider.enabled = true;
+        //_slider = GetComponent<Slider>();
+        //_slider.enabled = true;
         _slider.minValue = 0f;
         _slider.maxValue = 100f;
 
@@ -123,16 +123,12 @@ public class CharacterControls : MonoBehaviour
             }
         }
 
-        switch (_stamina)
+        _stamina = _stamina switch
         {
-            case > 100f:
-                _stamina = 100;
-                break;
-            case < 0f:
-                _stamina = 0f;
-                break;
-
-        }
+            > 100f => 100,
+            < 0f => 0f,
+            _ => _stamina
+        };
         _slider.value = _stamina;
 
     }
