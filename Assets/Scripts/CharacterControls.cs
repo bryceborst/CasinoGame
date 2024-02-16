@@ -12,8 +12,8 @@ public class CharacterControls : MonoBehaviour
     private InputManager inputManager;
     
     private CharacterController _controller;
-    private float runSpeed = 5.5f;
-    private float sprintSpeed = 8f;
+    private float runSpeed = 9f;
+    private float sprintSpeed = 15f;
     private bool isSprinting = false;
     private float stamina = 100f;
     private Rigidbody rigid;

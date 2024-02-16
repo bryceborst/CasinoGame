@@ -39,12 +39,24 @@ public class CountDown : MonoBehaviour
             gameOver.SetText("GAME OVER");
         }
 
-        displayedSeconds = seconds.ToString();
-        displayedSeconds.Remove(2);
+        if (seconds < 10)
+        {
+            displayedSeconds = "0" + seconds;
+        }
+        else
+        {
+           displayedSeconds = seconds.ToString();            
+        }
+        displayedSeconds = displayedSeconds.Remove(5);
         if (!isGameOver)
         {
            timer.SetText(minutes + ":" + displayedSeconds);            
         }
 
+    }
+
+    public bool getGameStatus()
+    {
+        return isGameOver;
     }
 }
