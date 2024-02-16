@@ -15,6 +15,8 @@ public class InputManager : MonoBehaviour
     
     public Vector2 Move { get; private set; }
     public Vector2 Look { get; private set; }
+    
+    public bool Flashlight { get; private set; }
 
     public InputAction ForwardCheck;
 
@@ -48,7 +50,12 @@ public class InputManager : MonoBehaviour
         Move = controls.Locomotion.Move.ReadValue<Vector2>();
         
         //USE LATER
-        Look = controls.Locomotion.Look.ReadValue<Vector2>(); 
+        Look = controls.Locomotion.Look.ReadValue<Vector2>();
+
+        Flashlight = controls.Locomotion.Flashlight.IsPressed();
+
     }
+
+
     
 }
