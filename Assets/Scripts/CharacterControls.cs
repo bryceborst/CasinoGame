@@ -1,74 +1,85 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.PlayerLoop;
-using UnityEngine.Serialization;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class CharacterControls : MonoBehaviour
 {
-    public Slider _slider;
+    private InputManager inputManager;
 
-    private InputManager _inputManager;
-
-    private Controls _controls;
-
+//Movement vars
     private CharacterController _controller;
-
-    [FormerlySerializedAs("runSpeed")] [SerializeField]
-    private float _walkSpeed = 5.5f;
-
-    [SerializeField] private float sprintSpeed = 8f;
-
-    private bool _isSprinting = false;
-
+    [SerializeField] private float runSpeed = 9f;
+    [SerializeField] private float sprintSpeed = 15f;
+    private bool isSprinting = false;
     private bool _cancelSprint = false;
-
-    private float _stamina = 100f;
-
-    [SerializeField] private float _staminaGainRate;
-
-    private bool _noStamina = false;
-
     private bool _wPressed = false;
-
+    
+    //Stamina vars
+    [SerializeField] private float _staminaGainRate = 7f;
     [SerializeField] private float staminaLossRate = 10f;
-
+    private bool _noStamina = false;
+    [SerializeField] public Slider _slider;
+    private float stamina = 100f;
+    
+    //Interacting vars
+    private Rigidbody rigid;
+    private bool inTriggerZone;
+    [SerializeField] private TMP_Text hText;
+    private bool lookingAtSomething;
 
     // Start is called before the first frame update
     void Start()
     {
-        _inputManager = InputManager.instance;
+        inputManager = InputManager.instance;
         _controller = GetComponent<CharacterController>();
-
+        
+        lookingAtSomething = false;
+        
         //Slider setup
-        //_slider = GetComponent<Slider>();
-        //_slider.enabled = true;
         _slider.minValue = 0f;
         _slider.maxValue = 100f;
 
-        _inputManager.Sprint.performed += context => _isSprinting = true;
-        _inputManager.Sprint.canceled += context => _isSprinting = false;
+        inputManager.Sprint.performed += context => isSprinting = true;
+        inputManager.Sprint.canceled += context => isSprinting = false;
+        
+        inputManager.WDown.performed += context => _wPressed = true;
+        inputManager.WDown.canceled += context => _wPressed = false;
+        
+        _wPressed = inputManager.ForwardCheck;
 
-        _inputManager.ForwardCheck.performed += context => _wPressed = true;
-        _inputManager.ForwardCheck.canceled += context => _wPressed = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!lookingAtSomething)
+        {
+            HandleMovement(Time.deltaTime);            
+        }
+        else
+        {
+            handLookingAtSomething();
+        }
+        if (inTriggerZone)
+        {
+            handleTriggerZone();
+        }
         HandleStamina();
-        HandleMovement(Time.deltaTime);
+        Debug.Log(_wPressed);
     }
-
+    
     private void HandleMovement(float delta)
     {
         //Walk speed
-        Vector3 movement = (_inputManager.Move.x * transform.right) + (_inputManager.Move.y * transform.forward);
+        Vector3 movement = (inputManager.Move.x * transform.right) + (inputManager.Move.y * transform.forward);
 
-        _controller.Move(_walkSpeed * movement * delta);
+        _controller.Move(runSpeed * movement * delta);
 
         //"W" must be pressed or sprint gets cancelled
         if (!_wPressed)
@@ -82,60 +93,112 @@ public class CharacterControls : MonoBehaviour
 
 
         //Cleans up sprinting so you can only sprint forward and "diagonal forward"
-        if (_isSprinting && !_cancelSprint)
+        if (isSprinting && !_cancelSprint)
         {
             //Use for future stamina feature
-            if (_stamina > 0 && !_noStamina)
+            if (stamina > 0 && !_noStamina)
             {
-                _stamina -= Time.deltaTime * staminaLossRate;
+                stamina -= Time.deltaTime * staminaLossRate;
                 //Moves player at sprint speed
                 _controller.Move(sprintSpeed * movement * delta);
             }
         }
     }
 
+    
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag.Equals("LookTrigger"))
+        {
+            inTriggerZone = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        inTriggerZone = false;
+        GetComponentInChildren<CameraControllerTest>().setCameraMode(1);
+        hText.SetText(" ");
+    }
+
+    public void handleH()
+    {
+        if (inTriggerZone)
+        {
+            handLookingAtSomething();
+        }
+
+        else if (lookingAtSomething)
+        {
+            lookAway();
+        }
+    }
+
+    private void handLookingAtSomething()
+    {
+        
+        hText.SetText("Press H to exit");
+        GetComponentInChildren<CameraControllerTest>().setCameraMode(2);
+        inTriggerZone = false;
+        lookingAtSomething = true;
+        
+    }
+
+    private void lookAway()
+    {
+        GetComponentInChildren<CameraControllerTest>().setCameraMode(1);
+        hText.SetText(" ");
+        lookingAtSomething = false;
+    }
+
+    private void handleTriggerZone()
+    {
+        hText.SetText("Press H to view");
+    }
+    
     private void HandleStamina()
     {
 
         //Checks left shift, reasonable stamina, and the 0 stamina delay
-        if (!_isSprinting && _stamina < 100 && _stamina > 0 && !_noStamina)
+        if (!isSprinting && stamina < 100 && stamina > 0 && !_noStamina)
         {
-            _stamina += Time.deltaTime * _staminaGainRate;
+            Debug.Log("ran");
+            stamina += Time.deltaTime * _staminaGainRate;
         }
         //When stamina runs all the way out it flicks a switch that keeps stamina "turned off" until it regens to 50
-        else if (_stamina <= 0 || _noStamina)
+        else if (stamina <= 0 || _noStamina)
         {
             //HIT ZERO
             _noStamina = true;
             _cancelSprint = true;
-            if (_isSprinting)
+            if (isSprinting)
             {
                 //DO LATER
                 //print message on screen that reads "Stop sprinting to regain stamina"
             }
-            else if (_stamina <= 50 && !_isSprinting)
+            else if (stamina <= 50 && !isSprinting)
             {
-                _stamina += Time.deltaTime * _staminaGainRate;
+                stamina += Time.deltaTime * _staminaGainRate;
             }
-            else if (_stamina > 50)
+            else if (stamina > 50)
             {
                 _noStamina = false;
             }
         }
 
-        _stamina = _stamina switch
+        stamina = stamina switch
         {
             > 100f => 100,
             < 0f => 0f,
-            _ => _stamina
+            _ => stamina
         };
-        _slider.value = _stamina;
+        _slider.value = stamina;
 
     }
 
-
-
-
-
-
+    private bool IsGrounded()
+    {
+        return _controller.isGrounded;
+    }
 }

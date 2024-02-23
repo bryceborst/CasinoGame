@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.HID;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour
@@ -11,15 +12,23 @@ public class InputManager : MonoBehaviour
     public static InputManager instance;
 
     private Controls controls;
-    
-    
-    public Vector2 Move { get; private set; }
-    public Vector2 Look { get; private set; }
 
-    public InputAction ForwardCheck;
+    [SerializeField] private CharacterControls _characterControls;
+    public Vector2 Move { get; private set; }
+    
+    public Vector2 Look { get; private set; }
+    
+    public bool Flashlight { get; private set; }
+
+    public bool ForwardCheck { get; private set; }
 
 
     public InputAction Sprint;
+    public InputAction WDown;
+
+    private InputAction H;
+
+    private float PreviousH;
     
     public void Awake()
     {
@@ -31,7 +40,7 @@ public class InputManager : MonoBehaviour
         {
             instance = this;
         }
-
+        
         controls = new Controls();
         controls.Enable();
     }
@@ -39,7 +48,9 @@ public class InputManager : MonoBehaviour
     void Start()
     {
         Sprint = controls.Locomotion.Sprint;
-        ForwardCheck = controls.Locomotion.ForwardCheck;
+        WDown = controls.Locomotion.ForwardCheck;
+        
+        H = controls.Locomotion.TriggerButton;
     }
 
     // Update is called once per frame
@@ -48,7 +59,16 @@ public class InputManager : MonoBehaviour
         Move = controls.Locomotion.Move.ReadValue<Vector2>();
         
         //USE LATER
-        Look = controls.Locomotion.Look.ReadValue<Vector2>(); 
+        Look = controls.Locomotion.Look.ReadValue<Vector2>();
+
+        Flashlight = controls.Locomotion.Flashlight.IsPressed();
+
+        if (H.ReadValue<float>() > PreviousH)
+        {
+            _characterControls.handleH();
+        }
+        PreviousH = H.ReadValue<float>();
+
     }
     
 }
