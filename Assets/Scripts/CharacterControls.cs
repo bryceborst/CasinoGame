@@ -6,16 +6,28 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class CharacterControls : MonoBehaviour
 {
     private InputManager inputManager;
-    
+
+//Movement vars
     private CharacterController _controller;
-    private float runSpeed = 9f;
-    private float sprintSpeed = 15f;
+    [SerializeField] private float runSpeed = 9f;
+    [SerializeField] private float sprintSpeed = 15f;
     private bool isSprinting = false;
+    private bool _cancelSprint = false;
+    private bool _wPressed = false;
+    
+    //Stamina vars
+    [SerializeField] private float _staminaGainRate = 7f;
+    [SerializeField] private float staminaLossRate = 10f;
+    private bool _noStamina = false;
+    [SerializeField] public Slider _slider;
     private float stamina = 100f;
+    
+    //Interacting vars
     private Rigidbody rigid;
     private bool inTriggerZone;
     [SerializeField] private TMP_Text hText;
@@ -26,9 +38,21 @@ public class CharacterControls : MonoBehaviour
     {
         inputManager = InputManager.instance;
         _controller = GetComponent<CharacterController>();
+        
+        lookingAtSomething = false;
+        
+        //Slider setup
+        _slider.minValue = 0f;
+        _slider.maxValue = 100f;
 
         inputManager.Sprint.performed += context => isSprinting = true;
-        lookingAtSomething = false;
+        inputManager.Sprint.canceled += context => isSprinting = false;
+        
+        inputManager.WDown.performed += context => _wPressed = true;
+        inputManager.WDown.canceled += context => _wPressed = false;
+        
+        _wPressed = inputManager.ForwardCheck;
+
     }
 
     // Update is called once per frame
@@ -46,21 +70,42 @@ public class CharacterControls : MonoBehaviour
         {
             handleTriggerZone();
         }
+        HandleStamina();
+        Debug.Log(_wPressed);
     }
     
     private void HandleMovement(float delta)
     {
+        //Walk speed
         Vector3 movement = (inputManager.Move.x * transform.right) + (inputManager.Move.y * transform.forward);
-    
-        _controller.Move( runSpeed * movement * delta);
-        
-        if (isSprinting)
+
+        _controller.Move(runSpeed * movement * delta);
+
+        //"W" must be pressed or sprint gets cancelled
+        if (!_wPressed)
         {
-            stamina -= Time.deltaTime * 10;
-            _controller.Move(sprintSpeed * movement * delta);
+            _cancelSprint = true;
+        }
+        else
+        {
+            _cancelSprint = false;
         }
 
+
+        //Cleans up sprinting so you can only sprint forward and "diagonal forward"
+        if (isSprinting && !_cancelSprint)
+        {
+            //Use for future stamina feature
+            if (stamina > 0 && !_noStamina)
+            {
+                stamina -= Time.deltaTime * staminaLossRate;
+                //Moves player at sprint speed
+                _controller.Move(sprintSpeed * movement * delta);
+            }
+        }
     }
+
+    
     
     private void OnTriggerEnter(Collider other)
     {
@@ -110,6 +155,46 @@ public class CharacterControls : MonoBehaviour
     private void handleTriggerZone()
     {
         hText.SetText("Press H to view");
+    }
+    
+    private void HandleStamina()
+    {
+
+        //Checks left shift, reasonable stamina, and the 0 stamina delay
+        if (!isSprinting && stamina < 100 && stamina > 0 && !_noStamina)
+        {
+            Debug.Log("ran");
+            stamina += Time.deltaTime * _staminaGainRate;
+        }
+        //When stamina runs all the way out it flicks a switch that keeps stamina "turned off" until it regens to 50
+        else if (stamina <= 0 || _noStamina)
+        {
+            //HIT ZERO
+            _noStamina = true;
+            _cancelSprint = true;
+            if (isSprinting)
+            {
+                //DO LATER
+                //print message on screen that reads "Stop sprinting to regain stamina"
+            }
+            else if (stamina <= 50 && !isSprinting)
+            {
+                stamina += Time.deltaTime * _staminaGainRate;
+            }
+            else if (stamina > 50)
+            {
+                _noStamina = false;
+            }
+        }
+
+        stamina = stamina switch
+        {
+            > 100f => 100,
+            < 0f => 0f,
+            _ => stamina
+        };
+        _slider.value = stamina;
+
     }
 
     private bool IsGrounded()

@@ -35,7 +35,7 @@ public class CameraControllerTest : MonoBehaviour
         look = input.Look;
         if (cameraMode.Equals("MainCameraMode"))
         {
-            transform.position = playerParent.position;
+            transform.position = playerParent.position + new Vector3(0,.75f,0);
             MainCameraMode(Time.deltaTime);
         }
         else if (cameraMode.Equals("SubCameraMode"))

@@ -17,9 +17,14 @@ public class InputManager : MonoBehaviour
     public Vector2 Move { get; private set; }
     
     public Vector2 Look { get; private set; }
+    
+    public bool Flashlight { get; private set; }
+
+    public bool ForwardCheck { get; private set; }
 
 
     public InputAction Sprint;
+    public InputAction WDown;
 
     private InputAction H;
 
@@ -43,6 +48,7 @@ public class InputManager : MonoBehaviour
     void Start()
     {
         Sprint = controls.Locomotion.Sprint;
+        WDown = controls.Locomotion.ForwardCheck;
         
         H = controls.Locomotion.TriggerButton;
     }
@@ -55,12 +61,14 @@ public class InputManager : MonoBehaviour
         //USE LATER
         Look = controls.Locomotion.Look.ReadValue<Vector2>();
 
+        Flashlight = controls.Locomotion.Flashlight.IsPressed();
+
         if (H.ReadValue<float>() > PreviousH)
         {
             _characterControls.handleH();
         }
         PreviousH = H.ReadValue<float>();
-        
+
     }
     
 }
