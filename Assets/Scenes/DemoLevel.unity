@@ -2652,7 +2652,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterControls: {fileID: 1176810439}
-  ForwardCheck:
+  Interact:
     m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
@@ -2666,6 +2666,15 @@ MonoBehaviour:
     m_Type: 0
     m_ExpectedControlType: 
     m_Id: 7113c810-f313-43f4-bf02-cc5f8e1eab9f
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  WDown:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
@@ -2699,6 +2708,7 @@ GameObject:
   - component: {fileID: 1176810441}
   - component: {fileID: 1176810439}
   - component: {fileID: 1176810440}
+  - component: {fileID: 1176810445}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2718,6 +2728,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb30b8fd46cad94f93092f478a451d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  runSpeed: 9
+  sprintSpeed: 15
   _staminaGainRate: 7
   staminaLossRate: 10
   _slider: {fileID: 83583079}
@@ -2837,6 +2849,19 @@ Transform:
   - {fileID: 776495228}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1176810445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176810438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c50b05c64c1a6d94693bc2c980941bb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 776495227}
 --- !u!1 &1206330057
 GameObject:
   m_ObjectHideFlags: 0

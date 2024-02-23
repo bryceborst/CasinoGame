@@ -89,6 +89,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""2b3c86ff-d4d1-4a5a-8ba4-4c2a2638a06d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -212,6 +221,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""ForwardCheck"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3d338669-06b7-4972-8978-fe6fbdb985af"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -227,6 +247,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Locomotion_ExitButton = m_Locomotion.FindAction("ExitButton", throwIfNotFound: true);
         m_Locomotion_Flashlight = m_Locomotion.FindAction("Flashlight", throwIfNotFound: true);
         m_Locomotion_ForwardCheck = m_Locomotion.FindAction("ForwardCheck", throwIfNotFound: true);
+        m_Locomotion_Interact = m_Locomotion.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -295,6 +316,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Locomotion_ExitButton;
     private readonly InputAction m_Locomotion_Flashlight;
     private readonly InputAction m_Locomotion_ForwardCheck;
+    private readonly InputAction m_Locomotion_Interact;
     public struct LocomotionActions
     {
         private @Controls m_Wrapper;
@@ -306,6 +328,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @ExitButton => m_Wrapper.m_Locomotion_ExitButton;
         public InputAction @Flashlight => m_Wrapper.m_Locomotion_Flashlight;
         public InputAction @ForwardCheck => m_Wrapper.m_Locomotion_ForwardCheck;
+        public InputAction @Interact => m_Wrapper.m_Locomotion_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Locomotion; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -336,6 +359,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @ForwardCheck.started += instance.OnForwardCheck;
             @ForwardCheck.performed += instance.OnForwardCheck;
             @ForwardCheck.canceled += instance.OnForwardCheck;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         private void UnregisterCallbacks(ILocomotionActions instance)
@@ -361,6 +387,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @ForwardCheck.started -= instance.OnForwardCheck;
             @ForwardCheck.performed -= instance.OnForwardCheck;
             @ForwardCheck.canceled -= instance.OnForwardCheck;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         public void RemoveCallbacks(ILocomotionActions instance)
@@ -387,5 +416,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnExitButton(InputAction.CallbackContext context);
         void OnFlashlight(InputAction.CallbackContext context);
         void OnForwardCheck(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }
