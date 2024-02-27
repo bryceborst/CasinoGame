@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Interact : MonoBehaviour
 {
@@ -9,7 +10,10 @@ public class Interact : MonoBehaviour
 
     private InputManager inputManager;
 
-    public Camera mainCamera;
+    [SerializeField] public Camera mainCamera;
+
+    [SerializeField] public Transform player;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +29,24 @@ public class Interact : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        CheckForInteractable();
+    }
+
+    private void CheckForInteractable()
+    {
+        // constantly raycast
+        // if the raycast hits something that is interactable
+        // show popup
+        // otherwise do nothing
+        RaycastHit hit;
+
+        if (Physics.SphereCast(player.position, 1, mainCamera.transform.rotation.eulerAngles, out hit, 5f))
+        {
+            if (hit.transform.GetComponent<IInteractable>() != null && eDown)
+            {
+                hit.transform.GetComponent<IInteractable>().Interact();            
+            }
+        }
+
     }
 }
