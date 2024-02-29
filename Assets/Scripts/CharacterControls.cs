@@ -71,7 +71,6 @@ public class CharacterControls : MonoBehaviour
             handleTriggerZone();
         }
         HandleStamina();
-//        Debug.Log(_wPressed);
     }
     
     private void HandleMovement(float delta)
@@ -163,7 +162,6 @@ public class CharacterControls : MonoBehaviour
         //Checks left shift, reasonable stamina, and the 0 stamina delay
         if (!isSprinting && stamina < 100 && stamina > 0 && !_noStamina)
         {
-            Debug.Log("ran");
             stamina += Time.deltaTime * _staminaGainRate;
         }
         //When stamina runs all the way out it flicks a switch that keeps stamina "turned off" until it regens to 50
