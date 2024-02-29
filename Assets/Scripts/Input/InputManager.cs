@@ -22,6 +22,8 @@ public class InputManager : MonoBehaviour
 
     public bool ForwardCheck { get; private set; }
 
+    public InputAction Interact;
+
 
     public InputAction Sprint;
     public InputAction WDown;
@@ -49,6 +51,7 @@ public class InputManager : MonoBehaviour
     {
         Sprint = controls.Locomotion.Sprint;
         WDown = controls.Locomotion.ForwardCheck;
+        Interact = controls.Locomotion.Interact;
         
         H = controls.Locomotion.TriggerButton;
     }
