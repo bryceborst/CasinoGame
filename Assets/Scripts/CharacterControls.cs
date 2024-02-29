@@ -71,7 +71,7 @@ public class CharacterControls : MonoBehaviour
             handleTriggerZone();
         }
         HandleStamina();
-        Debug.Log(_wPressed);
+//        Debug.Log(_wPressed);
     }
     
     private void HandleMovement(float delta)
