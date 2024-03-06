@@ -40,11 +40,12 @@ public class Interact : MonoBehaviour
         // otherwise do nothing
         RaycastHit hit;
 
-        if (Physics.SphereCast(player.position, 1, mainCamera.transform.rotation.eulerAngles, out hit, 5f))
+        if (Physics.SphereCast(player.position, 3, mainCamera.transform.rotation.eulerAngles, out hit, 5f))
         {
+            Debug.Log(hit);
             if (hit.transform.GetComponent<IInteractable>() != null && eDown)
             {
-                hit.transform.GetComponent<IInteractable>().Interact();            
+                hit.transform.GetComponent<IInteractable>().Interact();
             }
         }
 

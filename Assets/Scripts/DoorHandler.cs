@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class DoorHandler : MonoBehaviour
+public class DoorHandler : MonoBehaviour, IInteractable
 {
     private float degreesOpen;
 
@@ -35,17 +35,31 @@ public class DoorHandler : MonoBehaviour
 
     private void open()
     {
-        if (transform.rotation.y < openPos)
+        if (degreesOpen < openPos)
         {
-            transform.Rotate(new Vector3(0, 1, 0) * rotSpeed);
+            degreesOpen += rotSpeed;
+            transform.Rotate(new Vector3(0,1,0) * rotSpeed);
         }
     }
 
     private void close()
     {
-        if (transform.rotation.y > closedPos)
+        if (degreesOpen >= closedPos)
         {
+            degreesOpen -= rotSpeed;
             transform.Rotate(new Vector3(0, -1, 0) * rotSpeed);
+        }
+    }
+
+    public void Interact()
+    {
+        if (isOpen)
+        {
+            isOpen = false;
+        }
+        else
+        {
+            isOpen = true;
         }
     }
 }
