@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.HID;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class InputManager : MonoBehaviour
 {
@@ -54,6 +55,7 @@ public class InputManager : MonoBehaviour
         Interact = controls.Locomotion.Interact;
         
         H = controls.Locomotion.TriggerButton;
+
     }
 
     // Update is called once per frame
@@ -71,6 +73,7 @@ public class InputManager : MonoBehaviour
             _characterControls.handleH();
         }
         PreviousH = H.ReadValue<float>();
+        
 
     }
     

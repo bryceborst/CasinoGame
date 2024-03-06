@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -7,6 +9,8 @@ public class Interact : MonoBehaviour
 {
 
     private bool eDown;
+
+    private bool switchBool = false;
 
     private InputManager inputManager;
 
@@ -21,14 +25,25 @@ public class Interact : MonoBehaviour
 
 
 
-        inputManager.Interact.performed += context => eDown = true;
-        inputManager.Interact.canceled += context => eDown = false;
 
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        inputManager.Interact.performed += context => switchBool = true;
+        switch (switchBool)
+        {
+            case true:
+                eDown = true;
+                switchBool = false;
+                break;
+            
+            default:
+                eDown = false;
+                break;
+        }
         CheckForInteractable();
     }
 
@@ -38,15 +53,21 @@ public class Interact : MonoBehaviour
         // if the raycast hits something that is interactable
         // show popup
         // otherwise do nothing
+        
         RaycastHit hit;
-
-        if (Physics.SphereCast(player.position, 1, mainCamera.transform.rotation.eulerAngles, out hit, 5f))
+        if (Physics.SphereCast(player.position, 2, mainCamera.transform.rotation.eulerAngles, out hit, 3f))
         {
             if (hit.transform.GetComponent<IInteractable>() != null && eDown)
             {
-                hit.transform.GetComponent<IInteractable>().Interact();            
+                hit.transform.GetComponent<IInteractable>().Interact();
             }
         }
+    }
 
+    private void OnDrawGizmos()
+    {
+        var cam = mainCamera.transform;
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawSphere(cam.position + cam.forward * 3f, 2);
     }
 }
