@@ -22,17 +22,13 @@ public class Interact : MonoBehaviour
     void Start()
     {
         inputManager = InputManager.instance;
-
-
-
-
+        inputManager.Interact.performed += context => switchBool = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        inputManager.Interact.performed += context => switchBool = true;
+        
         switch (switchBool)
         {
             case true:
@@ -43,8 +39,11 @@ public class Interact : MonoBehaviour
             default:
                 eDown = false;
                 break;
-        }
+        } 
+        
         CheckForInteractable();
+        Debug.Log(eDown);
+
     }
 
     private void CheckForInteractable()
@@ -55,20 +54,20 @@ public class Interact : MonoBehaviour
         // otherwise do nothing
         
         RaycastHit hit;
-        if (Physics.SphereCast(player.position, 2, mainCamera.transform.rotation.eulerAngles, out hit, 3f))
+        if (Physics.SphereCast(player.position, 2, mainCamera.transform.forward, out hit, 3f))
         {
-            Debug.Log(hit);
             if (hit.transform.GetComponent<IInteractable>() != null && eDown)
             {
                 hit.transform.GetComponent<IInteractable>().Interact();
             }
         }
     }
-
+/*
     private void OnDrawGizmos()
     {
         var cam = mainCamera.transform;
         Gizmos.color = Color.magenta;
         Gizmos.DrawSphere(cam.position + cam.forward * 3f, 2);
     }
+    */
 }

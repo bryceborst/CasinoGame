@@ -505,8 +505,6 @@ GameObject:
   - component: {fileID: 1436330210}
   - component: {fileID: 1436330209}
   - component: {fileID: 1436330213}
-  - component: {fileID: 1436330214}
-  - component: {fileID: 1436330215}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -616,47 +614,6 @@ MonoBehaviour:
   openPos: 90
   rotSpeed: 1
   isOpen: 0
---- !u!114 &1436330214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1436330208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c50b05c64c1a6d94693bc2c980941bb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 9882898}
-  player: {fileID: 622369623}
---- !u!54 &1436330215
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1436330208}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &1606515388 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6028396194862766993, guid: e6bf689bff460724ba163d5f1ba8aff0,

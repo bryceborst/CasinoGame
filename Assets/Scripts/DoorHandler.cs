@@ -53,6 +53,7 @@ public class DoorHandler : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        Debug.Log("INTERACTED");
         if (isOpen)
         {
             isOpen = false;
