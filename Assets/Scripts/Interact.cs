@@ -23,16 +23,13 @@ public class Interact : MonoBehaviour
     {
         inputManager = InputManager.instance;
 
-
-
-
+        inputManager.Interact.performed += context => switchBool = true;
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        inputManager.Interact.performed += context => switchBool = true;
         switch (switchBool)
         {
             case true:
@@ -55,11 +52,13 @@ public class Interact : MonoBehaviour
         // otherwise do nothing
         
         RaycastHit hit;
-        if (Physics.SphereCast(player.position, 2, mainCamera.transform.rotation.eulerAngles, out hit, 3f))
+        if (Physics.SphereCast(player.position, 2, mainCamera.transform.forward, out hit, 3f))
         {
-            if (hit.transform.GetComponent<IInteractable>() != null && eDown)
+            var interactingObject = hit.transform.GetComponent<IInteractable>();
+            
+            if (interactingObject != null && eDown)
             {
-                hit.transform.GetComponent<IInteractable>().Interact();
+                interactingObject.Interact();
             }
         }
     }
