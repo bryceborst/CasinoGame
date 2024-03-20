@@ -42,7 +42,6 @@ public class Interact : MonoBehaviour
         } 
         
         CheckForInteractable();
-        Debug.Log(eDown);
 
     }
 
