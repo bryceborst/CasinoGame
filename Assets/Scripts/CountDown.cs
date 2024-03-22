@@ -17,6 +17,8 @@ public class CountDown : MonoBehaviour
 
     private string displayedSeconds;
 
+    private string displayedText;
+
     public bool isGameOver;
     // Start is called before the first frame update
     void Start()
@@ -57,8 +59,9 @@ public class CountDown : MonoBehaviour
             
         }
         //Updating UI timer
-        timer .SetText(displayedMins + ":" + displayedSeconds);
-        
+
+        displayedText = displayedMins + ":" + displayedSeconds;
+        timer.SetText(displayedText);
         
         //Detecting game over
         if (seconds < 0)

@@ -237,6 +237,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2669664509657906208, guid: b994fe8b411eaf547be8987cc0bc6ffe,
+        type: 3}
+      propertyPath: seconds
+      value: 1200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669664509657906208, guid: b994fe8b411eaf547be8987cc0bc6ffe,
+        type: 3}
+      propertyPath: displayedMins
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5500043705701156795, guid: b994fe8b411eaf547be8987cc0bc6ffe,
         type: 3}
       propertyPath: m_Name
@@ -250,6 +260,39 @@ PrefabInstance:
     - target: {fileID: 8268977318324760202, guid: b994fe8b411eaf547be8987cc0bc6ffe,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8578335552520487383, guid: b994fe8b411eaf547be8987cc0bc6ffe,
+        type: 3}
+      propertyPath: m_text
+      value: '20:00.00
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8578335552520487383, guid: b994fe8b411eaf547be8987cc0bc6ffe,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a,
+        type: 2}
+    - target: {fileID: 8578335552520487383, guid: b994fe8b411eaf547be8987cc0bc6ffe,
+        type: 3}
+      propertyPath: m_isRightToLeft
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8578335552520487383, guid: b994fe8b411eaf547be8987cc0bc6ffe,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+    - target: {fileID: 8578335552520487383, guid: b994fe8b411eaf547be8987cc0bc6ffe,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8578335552520487383, guid: b994fe8b411eaf547be8987cc0bc6ffe,
+        type: 3}
+      propertyPath: m_IsTextObjectScaleStatic
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
