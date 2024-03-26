@@ -14,6 +14,8 @@ public class InputManager : MonoBehaviour
 
     private Controls controls;
 
+    private bool movementOn = true;
+
     [SerializeField] private CharacterControls _characterControls;
     public Vector2 Move { get; private set; }
     
@@ -61,10 +63,12 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move = controls.Locomotion.Move.ReadValue<Vector2>();
-        
-        //USE LATER
-        Look = controls.Locomotion.Look.ReadValue<Vector2>();
+        if (movementOn)
+        {
+           Move = controls.Locomotion.Move.ReadValue<Vector2>();
+            
+           Look = controls.Locomotion.Look.ReadValue<Vector2>();            
+        }
 
         Flashlight = controls.Locomotion.Flashlight.IsPressed();
 
@@ -75,6 +79,18 @@ public class InputManager : MonoBehaviour
         PreviousH = H.ReadValue<float>();
         
 
+    }
+
+    public void disableMovement()
+    {
+        movementOn = false;
+        Move = new Vector2(0, 0);
+        Look = new Vector2(0, 0);
+    }
+
+    public void enableMovement()
+    {
+        movementOn = true;
     }
     
 }
