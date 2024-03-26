@@ -55,9 +55,11 @@ public class Interact : MonoBehaviour
         RaycastHit hit;
         if (Physics.SphereCast(player.position, 2, mainCamera.transform.forward, out hit, 3f))
         {
-            if (hit.transform.GetComponent<IInteractable>() != null && eDown)
+            var interactingObject = hit.transform.GetComponent<IInteractable>();
+            
+            if (interactingObject != null && eDown)
             {
-                hit.transform.GetComponent<IInteractable>().Interact();
+                interactingObject.Interact();
             }
         }
     }
