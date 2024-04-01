@@ -9,6 +9,8 @@ public class CasinoMachine : MonoBehaviour, IInteractable
 
     private bool isBeingLookedAt;
 
+    private bool eDown;
+
     [SerializeField] private CameraControllerTest _camera;
 
     [SerializeField] private InputManager _inputManager;
@@ -41,4 +43,5 @@ public class CasinoMachine : MonoBehaviour, IInteractable
         }
 
     }
+    
 }
