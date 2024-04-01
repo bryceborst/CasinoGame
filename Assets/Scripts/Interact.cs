@@ -17,6 +17,8 @@ public class Interact : MonoBehaviour
     [SerializeField] public Camera mainCamera;
 
     [SerializeField] public Transform player;
+
+    [SerializeField] private HotbarController _hotbarController;
     
     // Start is called before the first frame update
     void Start()
@@ -59,8 +61,18 @@ public class Interact : MonoBehaviour
             if (interactingObject != null && eDown)
             {
                 interactingObject.Interact();
+
+                var hotbar = hit.transform.GetComponent<IHotbar>();
+
+                if (hotbar != null)
+                {
+                     _hotbarController.AddToHotbar(hotbar);
+                }
+                
+               
             }
         }
+
     }
 
     private void OnDrawGizmos()
@@ -69,4 +81,8 @@ public class Interact : MonoBehaviour
         Gizmos.color = Color.magenta;
         Gizmos.DrawSphere(cam.position + cam.forward * 3f, 2);
     }
+    
 }
+
+
+

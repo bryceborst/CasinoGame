@@ -28,7 +28,6 @@ public class HandleLights : MonoBehaviour, IInteractable
                 lights.Add(l);
             }
         }
-
         
     }
 
@@ -71,8 +70,6 @@ public class HandleLights : MonoBehaviour, IInteractable
         {
             isOn = true;
         }
-
-
-
+        
     }
 }
