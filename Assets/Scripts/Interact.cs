@@ -55,7 +55,7 @@ public class Interact : MonoBehaviour
         // otherwise do nothing
         
         RaycastHit hit;
-        if (Physics.SphereCast(mainCamera.transform.position, raidius, mainCamera.transform.forward, out hit, 3f))
+        if (Physics.SphereCast(mainCamera.transform.position, raidius, mainCamera.transform.forward, out hit, 30f))
         {
             var interactingObject = hit.transform.GetComponent<IInteractable>();
             
@@ -66,12 +66,12 @@ public class Interact : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
+  /*  private void OnDrawGizmos()
     {
         var cam = mainCamera.transform;
         Gizmos.color = Color.magenta;
-        Gizmos.DrawSphere(cam.position + cam.forward * 3f, 2);
-    }
+        Gizmos.DrawSphere(cam.position + cam.forward * 3f, raidius);
+    }*/
 
     public void extendRaidius(float extension)
     {

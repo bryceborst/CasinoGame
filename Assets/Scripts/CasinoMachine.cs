@@ -11,6 +11,8 @@ public class CasinoMachine : MonoBehaviour, IInteractable
 
     private bool eDown;
 
+    [SerializeField] private Interact _interact;
+
     [SerializeField] private CameraControllerTest _camera;
 
     [SerializeField] private InputManager _inputManager;
@@ -29,19 +31,9 @@ public class CasinoMachine : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (!isBeingLookedAt)
-        {
             _camera.setCameraMode(2);
             _inputManager.disableMovement();
-            isBeingLookedAt = true;
-        }
-        else
-        {
-            _camera.setCameraMode(1);
-            _inputManager.enableMovement();
-            isBeingLookedAt = false;
-        }
-
+            _interact.extendRaidius(30);
     }
     
 }
