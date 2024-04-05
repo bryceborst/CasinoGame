@@ -16,6 +16,10 @@ public class CasinoMachine : MonoBehaviour, IInteractable
     [SerializeField] private CameraControllerTest _camera;
 
     [SerializeField] private InputManager _inputManager;
+
+    [SerializeField] private ScreenManager _screenManager;
+
+    [SerializeField] private int sceneToLoad;
     
     // Start is called before the first frame update
     void Start()
@@ -34,6 +38,7 @@ public class CasinoMachine : MonoBehaviour, IInteractable
             _camera.setCameraMode(2);
             _inputManager.disableMovement();
             _interact.extendRaidius(30);
+            _screenManager.loadSenario(sceneToLoad);
     }
     
 }
