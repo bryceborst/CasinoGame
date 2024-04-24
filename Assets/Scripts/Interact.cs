@@ -62,11 +62,13 @@ public class Interact : MonoBehaviour
             {
                 interactingObject.Interact();
 
-                var hotbar = hit.transform.GetComponent<IHotbar>();
+                var hotbar = hit.transform.GetComponent<GameObject>();
+                var item = hit.transform.GetComponent<IHotbar>();
 
                 if (hotbar != null)
                 {
                      _hotbarController.AddToHotbar(hotbar);
+                     item.Add();
                 }
                 
                

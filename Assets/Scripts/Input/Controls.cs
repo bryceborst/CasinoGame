@@ -98,6 +98,60 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Slot1"",
+                    ""type"": ""Button"",
+                    ""id"": ""d2109c88-0886-467e-adf2-6c24882f07bc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Slot2"",
+                    ""type"": ""Button"",
+                    ""id"": ""669e154a-a2f6-47f9-9f2b-e86e376c9520"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Slot3"",
+                    ""type"": ""Button"",
+                    ""id"": ""8949f92a-92e3-448f-858a-038921bf9922"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Slot4"",
+                    ""type"": ""Button"",
+                    ""id"": ""c057f3a5-633d-4704-9f84-68eb4a781fe9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Slot5"",
+                    ""type"": ""Button"",
+                    ""id"": ""6d9a4203-a65f-45db-94b3-6a3a9a59c685"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DropItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""e81d90a8-061f-4096-a4bf-e6c11f34b718"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -232,6 +286,72 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""beb9f49f-dd6d-4acd-82cc-4c856a74a5bd"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Slot1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2d5e9ab2-3d59-4cca-8c39-3e9a5131b50b"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Slot2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9104beb3-60a2-420f-8ce1-24dafb3512b6"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Slot3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c9b4d8d1-5634-4319-b807-20991fe8648d"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Slot4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9289bffa-8a8c-4a6a-a897-f6fc0394d8cc"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Slot5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7f5217b1-9c2b-49ee-9ee5-cba11570af5b"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DropItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -248,6 +368,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Locomotion_Flashlight = m_Locomotion.FindAction("Flashlight", throwIfNotFound: true);
         m_Locomotion_ForwardCheck = m_Locomotion.FindAction("ForwardCheck", throwIfNotFound: true);
         m_Locomotion_Interact = m_Locomotion.FindAction("Interact", throwIfNotFound: true);
+        m_Locomotion_Slot1 = m_Locomotion.FindAction("Slot1", throwIfNotFound: true);
+        m_Locomotion_Slot2 = m_Locomotion.FindAction("Slot2", throwIfNotFound: true);
+        m_Locomotion_Slot3 = m_Locomotion.FindAction("Slot3", throwIfNotFound: true);
+        m_Locomotion_Slot4 = m_Locomotion.FindAction("Slot4", throwIfNotFound: true);
+        m_Locomotion_Slot5 = m_Locomotion.FindAction("Slot5", throwIfNotFound: true);
+        m_Locomotion_DropItem = m_Locomotion.FindAction("DropItem", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -317,6 +443,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Locomotion_Flashlight;
     private readonly InputAction m_Locomotion_ForwardCheck;
     private readonly InputAction m_Locomotion_Interact;
+    private readonly InputAction m_Locomotion_Slot1;
+    private readonly InputAction m_Locomotion_Slot2;
+    private readonly InputAction m_Locomotion_Slot3;
+    private readonly InputAction m_Locomotion_Slot4;
+    private readonly InputAction m_Locomotion_Slot5;
+    private readonly InputAction m_Locomotion_DropItem;
     public struct LocomotionActions
     {
         private @Controls m_Wrapper;
@@ -329,6 +461,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Flashlight => m_Wrapper.m_Locomotion_Flashlight;
         public InputAction @ForwardCheck => m_Wrapper.m_Locomotion_ForwardCheck;
         public InputAction @Interact => m_Wrapper.m_Locomotion_Interact;
+        public InputAction @Slot1 => m_Wrapper.m_Locomotion_Slot1;
+        public InputAction @Slot2 => m_Wrapper.m_Locomotion_Slot2;
+        public InputAction @Slot3 => m_Wrapper.m_Locomotion_Slot3;
+        public InputAction @Slot4 => m_Wrapper.m_Locomotion_Slot4;
+        public InputAction @Slot5 => m_Wrapper.m_Locomotion_Slot5;
+        public InputAction @DropItem => m_Wrapper.m_Locomotion_DropItem;
         public InputActionMap Get() { return m_Wrapper.m_Locomotion; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -362,6 +500,24 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Slot1.started += instance.OnSlot1;
+            @Slot1.performed += instance.OnSlot1;
+            @Slot1.canceled += instance.OnSlot1;
+            @Slot2.started += instance.OnSlot2;
+            @Slot2.performed += instance.OnSlot2;
+            @Slot2.canceled += instance.OnSlot2;
+            @Slot3.started += instance.OnSlot3;
+            @Slot3.performed += instance.OnSlot3;
+            @Slot3.canceled += instance.OnSlot3;
+            @Slot4.started += instance.OnSlot4;
+            @Slot4.performed += instance.OnSlot4;
+            @Slot4.canceled += instance.OnSlot4;
+            @Slot5.started += instance.OnSlot5;
+            @Slot5.performed += instance.OnSlot5;
+            @Slot5.canceled += instance.OnSlot5;
+            @DropItem.started += instance.OnDropItem;
+            @DropItem.performed += instance.OnDropItem;
+            @DropItem.canceled += instance.OnDropItem;
         }
 
         private void UnregisterCallbacks(ILocomotionActions instance)
@@ -390,6 +546,24 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Slot1.started -= instance.OnSlot1;
+            @Slot1.performed -= instance.OnSlot1;
+            @Slot1.canceled -= instance.OnSlot1;
+            @Slot2.started -= instance.OnSlot2;
+            @Slot2.performed -= instance.OnSlot2;
+            @Slot2.canceled -= instance.OnSlot2;
+            @Slot3.started -= instance.OnSlot3;
+            @Slot3.performed -= instance.OnSlot3;
+            @Slot3.canceled -= instance.OnSlot3;
+            @Slot4.started -= instance.OnSlot4;
+            @Slot4.performed -= instance.OnSlot4;
+            @Slot4.canceled -= instance.OnSlot4;
+            @Slot5.started -= instance.OnSlot5;
+            @Slot5.performed -= instance.OnSlot5;
+            @Slot5.canceled -= instance.OnSlot5;
+            @DropItem.started -= instance.OnDropItem;
+            @DropItem.performed -= instance.OnDropItem;
+            @DropItem.canceled -= instance.OnDropItem;
         }
 
         public void RemoveCallbacks(ILocomotionActions instance)
@@ -417,5 +591,11 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnFlashlight(InputAction.CallbackContext context);
         void OnForwardCheck(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnSlot1(InputAction.CallbackContext context);
+        void OnSlot2(InputAction.CallbackContext context);
+        void OnSlot3(InputAction.CallbackContext context);
+        void OnSlot4(InputAction.CallbackContext context);
+        void OnSlot5(InputAction.CallbackContext context);
+        void OnDropItem(InputAction.CallbackContext context);
     }
 }
