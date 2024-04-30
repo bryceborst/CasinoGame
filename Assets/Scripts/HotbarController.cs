@@ -5,7 +5,8 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
 public class HotbarController : MonoBehaviour
 {
@@ -73,38 +74,33 @@ public class HotbarController : MonoBehaviour
 
     public void AddToHotbar(GameObject hotbar)
     {
-        bool freeSlot = false;
         int i = 0;
 
         var iHotbarComponent = hotbar.GetComponent<IHotbar>();
         //cycles through hotbar array searching for an empty slot and calls the add method in IHotbar
+
         if (iHotbarComponent != null)
         {
             for (i = 0; i < hotbarObjects.Length; i++)
             {
                 if (hotbarObjects[i] == null)
                 {
-                    freeSlot = true;
-
-                    hotbar.SetActive(false);
-                    //var mesh = hotbar.GetComponent<MeshRenderer>();
-                    //mesh.enabled = false;
-                    
                     iHotbarComponent.Add();
 
+                    //var mesh = hotbar.GetComponent<MeshRenderer>();
+                    //mesh.enabled = false;
+                    hotbarObjects[i] = hotbar;
+
+                    hotbar.SetActive(false);
                     break;
                 }
             }
         }
-
-        if (freeSlot)
-        {
-            hotbarObjects[i] = hotbar;
-        }
         else
         {
-            Debug.Log("Hotbar Full");
+            return;
         }
+        
         
         Debug.Log("AddToHotbar Called\n" + 
                          "Adding Object: " + hotbarObjects[i]);
@@ -123,7 +119,7 @@ public class HotbarController : MonoBehaviour
                 Slots[i].color = new Color(67,206,241, 1f);
                 continue;
             }
-            Slots[i].color = new Color(255, 255, 255, .392156863f);
+            Slots[i].color = new Color(255, 255, 255, .39215f);
         }
 
     }
@@ -154,10 +150,16 @@ public class HotbarController : MonoBehaviour
             Debug.Log("Item Drop Failed \n" +
                       "No Item Available to Drop. ");
         }
+    }
+
+    public void ImageToSlot()
+    {
+        Image keyjpg = Resources.Load<Image>("Assets/Scripts/HotbarAssets/KeyJpg.jpg");
+        Slots[currentSlot - 1] = keyjpg;
+        
 
 
     }
-    
     
     
 }
