@@ -96,10 +96,7 @@ public class HotbarController : MonoBehaviour
                 }
             }
         }
-        else
-        {
-            return;
-        }
+        else return; 
         
         
         Debug.Log("AddToHotbar Called\n" + 
@@ -108,9 +105,7 @@ public class HotbarController : MonoBehaviour
 
     private void SlotSelector()
     {
-        Debug.Log("Ran");
         //Set the selected slot - set to high opacity white & for every other slot - set to white default opacity.
-
 
         for (int i = 0; i < Slots.Length; i++)
         {
@@ -157,8 +152,20 @@ public class HotbarController : MonoBehaviour
         Image keyjpg = Resources.Load<Image>("Assets/Scripts/HotbarAssets/KeyJpg.jpg");
         Slots[currentSlot - 1] = keyjpg;
         
+    }
 
-
+    public int ReturnSlot(String objName)
+    {
+        for (int i = 0; i < hotbarObjects.Length; i++)
+        {
+            if (hotbarObjects[i].name == objName)
+            {
+                Debug.Log("Matched");
+                return i;
+            }
+        }
+        Debug.Log("No Match");
+        return 76;
     }
     
     

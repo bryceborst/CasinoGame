@@ -6,6 +6,7 @@ TagManager:
   tags:
   - LookTrigger
   - Lighting
+  - HotbarImage
   layers:
   - Default
   - TransparentFX
