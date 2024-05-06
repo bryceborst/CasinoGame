@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 5263966472423350497}
   m_Layer: 0
   m_Name: CasinoMachine
-  m_TagString: Untagged
+  m_TagString: LookingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -264,8 +264,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bd7b7c991c688641b32588741c99173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interact: {fileID: 0}
   _camera: {fileID: 0}
   _inputManager: {fileID: 0}
+  _screenManager: {fileID: 0}
+  sceneToLoad: 0
 --- !u!54 &5263966472423350497
 Rigidbody:
   m_ObjectHideFlags: 0

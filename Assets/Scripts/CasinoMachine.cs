@@ -7,7 +7,7 @@ public class CasinoMachine : MonoBehaviour, IInteractable
 
     private CasinoMachine machine;
 
-    private bool isBeingLookedAt;
+    private bool isBeingLookedAt { get; set; }
 
     private bool eDown;
 

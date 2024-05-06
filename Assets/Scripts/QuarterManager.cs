@@ -22,7 +22,10 @@ public class QuarterManager : MonoBehaviour
 
     public void useQuater(int numUsed)
     {
-        quaters -= numUsed;
-        QuaterCounter.SetText("QUARTERS:" + quaters);
+        if (quaters -numUsed > 0)
+        {
+           quaters -= numUsed;
+           QuaterCounter.SetText("QUARTERS:" + quaters);            
+        }
     }
 }

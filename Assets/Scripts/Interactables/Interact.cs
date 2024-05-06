@@ -7,6 +7,7 @@ using UnityEngine.Serialization;
 
 public class Interact : MonoBehaviour
 {
+    private CasinoMachine lastCasinoMachine;
 
     private bool eDown;
 
@@ -15,6 +16,8 @@ public class Interact : MonoBehaviour
     private InputManager inputManager;
 
     private float raidius = 2;
+
+    private float maxDist = 2;
 
     [SerializeField] public Camera mainCamera;
 
@@ -30,7 +33,6 @@ public class Interact : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         switch (switchBool)
         {
             case true:
@@ -42,6 +44,7 @@ public class Interact : MonoBehaviour
                 eDown = false;
                 break;
         } 
+        
         
         CheckForInteractable();
 
@@ -55,7 +58,7 @@ public class Interact : MonoBehaviour
         // otherwise do nothing
         
         RaycastHit hit;
-        if (Physics.SphereCast(mainCamera.transform.position, raidius, mainCamera.transform.forward, out hit, 30f))
+        if (Physics.SphereCast(mainCamera.transform.position, raidius, mainCamera.transform.forward, out hit, maxDist))
         {
             var interactingObject = hit.transform.GetComponent<IInteractable>();
             
@@ -63,6 +66,8 @@ public class Interact : MonoBehaviour
             {
                 interactingObject.Interact();
             }
+
+            
         }
     }
 
@@ -76,6 +81,8 @@ public class Interact : MonoBehaviour
     public void extendRaidius(float extension)
     {
         raidius += extension;
+        maxDist += extension;
+        //Debug.Log("called");
     }
 
 }

@@ -26,5 +26,6 @@ public class ScreenController : MonoBehaviour, IInteractable
         Camera.setCameraMode(1);
         _interact.extendRaidius(-30);
         _inputManager.enableMovement();
+      //  Debug.Log("called");
     }
 }

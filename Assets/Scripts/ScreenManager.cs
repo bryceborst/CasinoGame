@@ -54,13 +54,13 @@ public class ScreenManager : MonoBehaviour
                 objectsInASenerio[j] = null;
             }
         }
-        for (int i = 0; i < SenerioObjects.Length; i++)
+      /*  for (int i = 0; i < SenerioObjects.Length; i++)
         {
             for (int j = 0; j < SenerioObjects[i].Length; j++)
             {
                 Debug.Log(SenerioObjects[i][j]);
             }
-        }
+        }*/
     }
 
     // Update is called once per frame
@@ -74,7 +74,11 @@ public class ScreenManager : MonoBehaviour
         emptyObjectActive();
         for (int i = 0; i < SenerioObjects[senario-1].Length; i++)
         {
-            SenerioObjects[senario-1][i].SetActive(true);
+            if (SenerioObjects[senario-1][i] != null)
+            {
+                SenerioObjects[senario-1][i].SetActive(true);
+            }
+
         }
     }
 

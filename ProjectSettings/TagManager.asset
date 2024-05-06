@@ -6,6 +6,7 @@ TagManager:
   tags:
   - LookTrigger
   - Lighting
+  - LookingObject
   layers:
   - Default
   - TransparentFX
