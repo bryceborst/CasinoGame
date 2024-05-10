@@ -1957,6 +1957,7 @@ MonoBehaviour:
   onScreenTime: 2
   runTimer: 0
   hotbarText: {fileID: 925058710}
+  image: {fileID: 57216241}
 --- !u!4 &734156676
 Transform:
   m_ObjectHideFlags: 0
@@ -2882,6 +2883,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1176810444}
   slotParent: {fileID: 909970061}
+  handleImage: {fileID: 1359324024}
+  hotbarObjects: []
 --- !u!1 &989484345
 GameObject:
   m_ObjectHideFlags: 0
@@ -4164,6 +4167,58 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &1359324023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1359324025}
+  - component: {fileID: 1359324024}
+  m_Layer: 0
+  m_Name: HandleImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1359324024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359324023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c2f7c19f9b9ff409fd69aa10882433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  images: []
+  hotbarController: {fileID: 965094783}
+  handleKey: {fileID: 734156675}
+  Slot1: {fileID: 1655427338}
+  Slot2: {fileID: 138709299}
+  Slot3: {fileID: 37413981}
+  Slot4: {fileID: 1202295602}
+  Slot5: {fileID: 2087212514}
+--- !u!4 &1359324025
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359324023}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.35251838, y: 1.7013395, z: -20.558132}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1427819822
 GameObject:
   m_ObjectHideFlags: 0
@@ -5582,6 +5637,7 @@ MonoBehaviour:
   onScreenTime: 2
   runTimer: 0
   hotbarText: {fileID: 925058710}
+  image: {fileID: 0}
 --- !u!1 &2022725359
 GameObject:
   m_ObjectHideFlags: 0
@@ -5958,3 +6014,4 @@ SceneRoots:
   - {fileID: 1940653756}
   - {fileID: 965094782}
   - {fileID: 734156676}
+  - {fileID: 1359324025}

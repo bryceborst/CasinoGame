@@ -15,14 +15,14 @@ public class HotbarController : MonoBehaviour
     private Image[] Slots;
     
     [SerializeField] private Transform slotParent;
+
+    [SerializeField] private HandleImage handleImage;
     
-    
-    private GameObject[] hotbarObjects = new GameObject[5];
+    public GameObject[] hotbarObjects = new GameObject[5];
 
     private int currentSlot = 1;
 
     private InputManager inputManager;
-
     
     private bool dropped = false;
 
@@ -31,35 +31,36 @@ public class HotbarController : MonoBehaviour
     void Start()
     {
         Slots = slotParent.GetComponentsInChildren<Image>();
-        
-        
-        inputManager = InputManager.instance;
+
+        hotbarObjects = new GameObject[] {null, null, null, null, null};
+
+            inputManager = InputManager.instance;
         inputManager.Drop.performed += context => dropped = true;
 
         inputManager.HotbarSlot1.performed += context =>
         {
-            currentSlot = 1;
+            currentSlot = 0;
             SlotSelector();
         };
         
         inputManager.HotbarSlot2.performed += context =>
         {
-            currentSlot = 2;
+            currentSlot = 1;
             SlotSelector();
         };
         inputManager.HotbarSlot3.performed += context =>
         {
-            currentSlot = 3;
+            currentSlot = 2;
             SlotSelector();
         };
         inputManager.HotbarSlot4.performed += context =>
         {
-            currentSlot = 4;
+            currentSlot = 3;
             SlotSelector();
         };
         inputManager.HotbarSlot5.performed += context =>
         {
-            currentSlot = 5;
+            currentSlot = 4;
             SlotSelector();
         };
 
@@ -74,15 +75,17 @@ public class HotbarController : MonoBehaviour
 
     public void AddToHotbar(GameObject hotbar)
     {
-        int i = 0;
+        int i;
 
-        var iHotbarComponent = hotbar.GetComponent<IHotbar>();
-        //cycles through hotbar array searching for an empty slot and calls the add method in IHotbar
+        //cycles through hotbar list searching for an empty slot and calls the add method in IHotbar
 
-        if (iHotbarComponent != null)
+        if (hotbar.GetComponent<IHotbar>() != null)
         {
+            var iHotbarComponent = hotbar.GetComponent<IHotbar>();
+
             for (i = 0; i < hotbarObjects.Length; i++)
             {
+                Debug.Log("Ran");
                 if (hotbarObjects[i] == null)
                 {
                     iHotbarComponent.Add();
@@ -90,17 +93,19 @@ public class HotbarController : MonoBehaviour
                     //var mesh = hotbar.GetComponent<MeshRenderer>();
                     //mesh.enabled = false;
                     hotbarObjects[i] = hotbar;
-
-                    hotbar.SetActive(false);
+                    
+                    Debug.Log("Image name: " + iHotbarComponent.Name);
+                    handleImage.ImageToSlot(iHotbarComponent.Name, iHotbarComponent);
+                    
+                    hotbar.GetComponent<MeshRenderer>().enabled = false;
+                    hotbar.GetComponent<Collider>().enabled = false;
+                    Debug.Log("AddToHotbar Complete");
                     break;
                 }
             }
+            
+
         }
-        else return; 
-        
-        
-        Debug.Log("AddToHotbar Called\n" + 
-                         "Adding Object: " + hotbarObjects[i]);
     }
 
     private void SlotSelector()
@@ -109,7 +114,7 @@ public class HotbarController : MonoBehaviour
 
         for (int i = 0; i < Slots.Length; i++)
         {
-            if (i == (currentSlot - 1))
+            if (i == (currentSlot))
             {
                 Slots[i].color = new Color(67,206,241, 1f);
                 continue;
@@ -147,26 +152,8 @@ public class HotbarController : MonoBehaviour
         }
     }
 
-    public void ImageToSlot()
-    {
-        Image keyjpg = Resources.Load<Image>("Assets/Scripts/HotbarAssets/KeyJpg.jpg");
-        Slots[currentSlot - 1] = keyjpg;
-        
-    }
 
-    public int ReturnSlot(String objName)
-    {
-        for (int i = 0; i < hotbarObjects.Length; i++)
-        {
-            if (hotbarObjects[i].name == objName)
-            {
-                Debug.Log("Matched");
-                return i;
-            }
-        }
-        Debug.Log("No Match");
-        return 76;
-    }
+
     
     
 }
