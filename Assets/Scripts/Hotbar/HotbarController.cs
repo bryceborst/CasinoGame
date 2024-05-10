@@ -24,7 +24,6 @@ public class HotbarController : MonoBehaviour
 
     private InputManager inputManager;
     
-    private bool dropped = false;
 
 
     // Start is called before the first frame update
@@ -35,9 +34,8 @@ public class HotbarController : MonoBehaviour
         hotbarObjects = new GameObject[] {null, null, null, null, null};
 
             inputManager = InputManager.instance;
-        inputManager.Drop.performed += context => dropped = true;
 
-        inputManager.HotbarSlot1.performed += context =>
+            inputManager.HotbarSlot1.performed += context =>
         {
             currentSlot = 0;
             SlotSelector();
@@ -64,7 +62,11 @@ public class HotbarController : MonoBehaviour
             SlotSelector();
         };
 
-        inputManager.Drop.performed += context => RemoveFromHotbar();
+        inputManager.Drop.performed += context =>
+        {
+            Debug.Log("Drop Performed");
+            RemoveFromHotbar();
+        };
     }
 
     // Update is called once per frame
@@ -126,24 +128,24 @@ public class HotbarController : MonoBehaviour
     
     public void RemoveFromHotbar()
     {
-        //If there is an item in slot, move item to character, activate item,
+        //If there is an item in slot, enable and move item in front of player, remove item from image and item arrays
         //make item IHotbar to reference Remove() method.
-        IHotbar hotbarItem;
+
         
         
         if (hotbarObjects[currentSlot] != null)
         {
-            hotbarObjects[currentSlot].SetActive(true);
+            hotbarObjects[currentSlot].GetComponent<MeshRenderer>().enabled = true;
+            hotbarObjects[currentSlot].GetComponent<BoxCollider>().enabled = true;
             hotbarObjects[currentSlot].transform.position = player.transform.position + new Vector3(0, -1, 1);
 
 
-            hotbarItem = hotbarObjects[currentSlot].GetComponent<IHotbar>();
+            var hotbarItem = hotbarObjects[currentSlot].GetComponent<IHotbar>();
             hotbarItem.Remove();
             hotbarObjects[currentSlot] = null;
 
 
-
-            dropped = false;
+            
         }
         else
         {
