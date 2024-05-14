@@ -12,12 +12,8 @@ public class Interact : MonoBehaviour
     [SerializeField] private TMP_Text hotbarText;
 
     [SerializeField] public HandleKey handleKey;
-    
-    private bool isHotbarItem = false;
-    
-    private bool eDown;
 
-    private bool switchBool = false;
+    private bool eDown;
 
     private InputManager inputManager;
 
@@ -73,7 +69,6 @@ public class Interact : MonoBehaviour
             if (item != null && !handleKey.runTimer)
             {
                 hotbarText.text = ("Press E to add '" + hit.transform.name + "' to Hotbar");
-                isHotbarItem = true;
             }
 
         }

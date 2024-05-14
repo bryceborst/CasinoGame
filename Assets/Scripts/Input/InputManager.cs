@@ -63,6 +63,8 @@ public class InputManager : MonoBehaviour
         HotbarSlot4 = controls.Locomotion.Slot4;
         HotbarSlot5 = controls.Locomotion.Slot5;
         
+        Drop = controls.Locomotion.DropItem;
+        
     }
     // Start is called before the first frame update
     void Start()
@@ -70,7 +72,7 @@ public class InputManager : MonoBehaviour
         Sprint = controls.Locomotion.Sprint;
         WDown = controls.Locomotion.ForwardCheck;
         Interact = controls.Locomotion.Interact;
-        Drop = controls.Locomotion.DropItem;
+
         
      
         
